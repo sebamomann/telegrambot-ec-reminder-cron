@@ -20,9 +20,6 @@ export async function fetchEventsAndReminders() {
     var sql = 'SELECT * FROM event WHERE date > CURRENT_DATE';
 
     const [result] = await con.execute(sql);
-    if (result.length === 0) {
-        return;
-    }
 
     console.log(`[CRON] Found '${result.length}' events in the future`);
     console.log("");
