@@ -36,7 +36,7 @@ export async function fetchEventsAndReminders() {
         var eventTime = new Date(event.date);
         var currentTime = new Date();
         var prevTime = new Date();
-        prevTime.setTime(prevTime.getTime() - (1000 * 60 * 100)); // previous minute
+        prevTime.setTime(prevTime.getTime() - (1000 * 60)); // previous minute
 
         var distance_curr = eventTime.getTime() - currentTime.getTime();
         distance_curr = distance_curr / 1000; // time in seconds
