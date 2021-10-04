@@ -3,6 +3,9 @@ import { startConnection, fetchEventsAndReminders } from './mysql_requests.js'
 import * as fs from 'fs';
 import * as cron from 'cron';
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 const messageSet_raw = fs.readFileSync('./message_set.json');
 const messageSet = JSON.parse(messageSet_raw);
 
