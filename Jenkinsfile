@@ -72,7 +72,7 @@ pipeline {
                         } catch (err) {
                             echo "cant remove container - it does not exist"
                         }
-                        sh "docker run --name ${name} -v -v /var/lib/docker/volumes/telegrambot-ec-reminder/_data/cron.env:/usr/src/app/.env -d ${image_name}"
+                        sh "docker run --name ${name} -v /var/lib/docker/volumes/telegrambot-ec-reminder/_data/cron.env:/usr/src/app/.env -d ${image_name}"
                     }
                 }
             }
