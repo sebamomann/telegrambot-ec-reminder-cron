@@ -17,7 +17,7 @@ export async function startConnection() {
 }
 
 export async function fetchEventsAndReminders() {
-    var sql = 'SELECT *HE FROM event WHERE date > CURRENT_TIMESTAMP';
+    var sql = 'SELECT * FROM event WHERE date > CURRENT_TIMESTAMP';
 
     const [result] = await con.execute(sql);
 
