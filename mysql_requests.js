@@ -34,19 +34,6 @@ export async function fetchEventsAndReminders() {
         var currentTime = new Date(new Date((new Date()).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })).toISOString());
         var prevTime = new Date(new Date((new Date()).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })).toISOString());
 
-        console.log("#########");
-        console.log("#########");
-        console.log("#########");
-        console.log("#########");
-        console.log("#########");
-        console.log(eventTime);
-        console.log(currentTime);
-        console.log("#########");
-        console.log("#########");
-        console.log("#########");
-        console.log("#########");
-        console.log("#########");
-
         prevTime.setTime(prevTime.getTime() - (1000 * 60)); // previous minute
 
         var distance_curr = eventTime.getTime() - currentTime.getTime();
