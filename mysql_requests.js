@@ -8,7 +8,8 @@ export async function startConnection() {
             host: process.env.MYSQL_URL,
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
-            database: process.env.MYSQL_DB
+            database: process.env.MYSQL_DB,
+            timezone: 'Europe/Berlin'
         });
         console.log(`[SQL] Connected!`);
     } catch (e) {
