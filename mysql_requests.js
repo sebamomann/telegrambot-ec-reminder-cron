@@ -17,7 +17,7 @@ export async function startConnection() {
 }
 
 export async function fetchEventsAndReminders() {
-    var sql = 'SELECT * FROM event WHERE date > CURRENT_TIMESTAMP';
+    var sql = 'SELECT * FROM event WHERE date >= CURRENT_TIMESTAMP';
 
     const [result] = await con.execute(sql);
 
@@ -61,7 +61,7 @@ export async function fetchEventsAndReminders() {
 }
 
 export async function fetchRemindersInTimespanByEventId(eventId, curr, prev) {
-    var sql = 'SELECT * FROM reminder JOIN account ON reminder.userId = account.id WHERE eventId = ? AND distance > ? AND distance < ?';
+    var sql = 'SELECT * FROM reminder JOIN account ON reminder.userId = account.id WHERE eventId = ? AND distance >= ? AND distance < ?';
 
     const [result] = await con.execute(sql, [eventId, curr, prev]);
 
