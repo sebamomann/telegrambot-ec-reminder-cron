@@ -30,7 +30,7 @@ export async function fetchEventsAndReminders() {
     for (let event of result) {
         console.log(`[CRON] Handling event with name '${event.name}'`);
 
-        var eventTime = new Date(event.date);
+        var eventTime = new Date((new Date(event.date)).toLocaleString("de-DE", { timeZone: "Europe/Berlin" }));
         var currentTime = new Date((new Date()).toLocaleString("de-DE", { timeZone: "Europe/Berlin" }));
         var prevTime = new Date((new Date()).toLocaleString("de-DE", { timeZone: "Europe/Berlin" }));
 
