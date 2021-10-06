@@ -8,8 +8,7 @@ export async function startConnection() {
             host: process.env.MYSQL_URL,
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
-            database: process.env.MYSQL_DB,
-            timezone: 'UTC+01:00'
+            database: process.env.MYSQL_DB
         });
         console.log(`[SQL] Connected!`);
     } catch (e) {
@@ -34,6 +33,20 @@ export async function fetchEventsAndReminders() {
         var eventTime = new Date(event.date);
         var currentTime = new Date();
         var prevTime = new Date();
+
+        console.log("#########");
+        console.log("#########");
+        console.log("#########");
+        console.log("#########");
+        console.log("#########");
+        console.log(eventTime);
+        console.log(currentTime);
+        console.log("#########");
+        console.log("#########");
+        console.log("#########");
+        console.log("#########");
+        console.log("#########");
+
         prevTime.setTime(prevTime.getTime() - (1000 * 60)); // previous minute
 
         var distance_curr = eventTime.getTime() - currentTime.getTime();
