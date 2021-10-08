@@ -1,27 +1,12 @@
-import * as mysql from 'mysql2/promise';
+import { pool } from './mysql_connection.js'
 import moment from 'moment-timezone';
 import { LOGEventHandling, LOGSQLStart, LOGSQLEnd } from './logger.js';
 
-var con;
-
-export async function startConnection() {
-    try {
-        con = await mysql.createConnection({
-            host: process.env.MYSQL_URL,
-            user: process.env.MYSQL_USER,
-            password: process.env.MYSQL_PASSWORD,
-            database: process.env.MYSQL_DB
-        });
-        console.log(`[SQL] Connected!`);
-    } catch (e) {
-        console.log(`[SQL] Could not connect to database. Reason ${e}`)
-    }
-}
 
 export async function fetchEventsAndReminders() {
     var sql = 'SELECT * FROM event WHERE date >= CURRENT_TIMESTAMP';
 
-    const [result] = await con.execute(sql);
+    const [result] = await pool.execute(sql);
 
     LOGSQLStart(result.length);
 
@@ -53,7 +38,7 @@ export async function fetchEventsAndReminders() {
 export async function fetchRemindersInTimespanByEventId(eventId, curr, prev) {
     var sql = 'SELECT *, account.id AS accountId FROM reminder JOIN account ON reminder.userId = account.id WHERE eventId = ? AND distance >= ? AND distance < ?';
 
-    const [result] = await con.execute(sql, [eventId, curr, prev]);
+    const [result] = await pool.execute(sql, [eventId, curr, prev]);
 
     return result;
 }

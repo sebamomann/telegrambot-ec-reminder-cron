@@ -1,18 +1,16 @@
 import { Telegraf } from 'telegraf';
-import { startConnection, fetchEventsAndReminders } from './mysql_requests.js'
-import * as cron from 'cron';
-
-import dotenv from 'dotenv'
+import { fetchEventsAndReminders } from './mysql_requests.js'
 import { LOGRunStart, LOGRunEnd } from './logger.js';
 import { parseFullName } from './account_parser.js';
 import { prepareMessageText } from './message_preparation.js';
+
+import * as cron from 'cron';
+
+import dotenv from 'dotenv'
 dotenv.config()
 
 // START TELEGRAMBOT
 const bot = new Telegraf(process.env.BOT_API_TOKEN);
-
-// CONNECT TO DATABASE
-await startConnection();
 
 const job = cron.job(process.env.CRON_DEFINITION, () => run())
 job.start();
