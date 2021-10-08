@@ -1,6 +1,6 @@
 import * as mysql from 'mysql2/promise';
 import moment from 'moment-timezone';
-import { LOGEventHandling, LOGSQLStart } from './logger.js';
+import { LOGEventHandling, LOGSQLStart, LOGSQLEnd } from './logger.js';
 
 var con;
 
