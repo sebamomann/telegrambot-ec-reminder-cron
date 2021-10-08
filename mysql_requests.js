@@ -1,4 +1,6 @@
 import * as mysql from 'mysql2/promise';
+import moment from 'moment-timezone';
+import { LOGEventHandling, LOGSQLStart } from './logger.js';
 
 var con;
 
@@ -21,52 +23,43 @@ export async function fetchEventsAndReminders() {
 
     const [result] = await con.execute(sql);
 
-    console.log(`[CRON] Found '${result.length}' events in the future`);
-    console.log("");
+    LOGSQLStart(result.length);
 
     const events = [];
+    const currentTime = moment(new Date()); // current system time
+    var prevTime = moment(new Date()).subtract(1, "minutes"); // current system time one minte back
 
-    // loop
     for (let event of result) {
-        console.log(`[CRON] Handling event with name '${event.name}'`);
+        const eventTime = moment(event.date);
 
-        var eventTime = new Date(new Date(event.date.toLocaleString("de-DE", { timeZone: "UTC" })).toISOString());
-        var currentTime = new Date(new Date((new Date()).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })).toISOString());
-        var prevTime = new Date(new Date((new Date()).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })).toISOString());
+        var distance_curr = moment.duration(eventTime.diff(currentTime)).asSeconds();
+        var distance_prev = moment.duration(eventTime.diff(prevTime)).asSeconds();
 
-        console.log(eventTime);
-        console.log(currentTime);
-
-        prevTime.setTime(prevTime.getTime() - (1000 * 60)); // previous minute
-
-        var distance_curr = eventTime.getTime() - currentTime.getTime();
-        distance_curr = distance_curr / 1000; // time in seconds
-        distance_curr = Math.floor(distance_curr);
-        console.log("[CRON] Seconds to event: " + distance_curr);
-
-        var distance_prev = eventTime.getTime() - prevTime.getTime();
-        distance_prev = distance_prev / 1000; // time in seconds
-        distance_prev = Math.floor(distance_prev);
-        console.log("[CRON] Seconds (prev) to event: " + distance_prev);
-
-        console.log(`[CRON] Query reminders`);
         const reminders = await fetchRemindersInTimespanByEventId(event.id, distance_curr, distance_prev);
-        console.log(`[CRON] Found ${reminders.length} reminders`);
 
+        // save active reminders with the event in an array
         if (reminders.length > 0) {
             events.push({ event, reminders });
         }
 
-        console.log("");
+        LOGEventHandling(event.name, distance_curr, distance_prev, reminders.length);
     }
+
+    LOGSQLEnd();
 
     return events;
 }
 
 export async function fetchRemindersInTimespanByEventId(eventId, curr, prev) {
-    var sql = 'SELECT * FROM reminder JOIN account ON reminder.userId = account.id WHERE eventId = ? AND distance >= ? AND distance < ?';
+    var sql = 'SELECT *, account.id AS accountId FROM reminder JOIN account ON reminder.userId = account.id WHERE eventId = ? AND distance >= ? AND distance < ?';
 
     const [result] = await con.execute(sql, [eventId, curr, prev]);
 
     return result;
+}
+
+function isDST(d) {
+    let jan = new Date(d.getFullYear(), 0, 1).getTimezoneOffset();
+    let jul = new Date(d.getFullYear(), 6, 1).getTimezoneOffset();
+    return Math.max(jan, jul) != d.getTimezoneOffset();
 }
