@@ -1,8 +1,8 @@
 [
     "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nMoin {{NAME}},\r\nhiermit möchte ich dich an '{{EVENT_NAME}}' erinnern. Wann wird das stattfinden? Na am {{DATE}} Uhr.",
-    "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nTLDR; {{EVENT_NAME}}, am {{DATE}} Uhr.",
-    "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nIch grüße Sie, {{NAME}},\r\nmit Freude erinnere ich Sie wie gewünscht an {{EVENT_NAME}}. Das Datum an dem dies terminiert ist, ist der {{DATE}} Uhr.\r\n\r\nMit freundlichen Grüßen\r\n, James",
+    "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nTLDR;\r\n{{EVENT_NAME}}, am {{DATE}} Uhr.",
+    "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nIch grüße Sie, {{NAME}},\r\nmit Freude erinnere ich Sie wie gewünscht an {{EVENT_NAME}}. Das Datum an dem dies terminiert ist, ist der {{DATE}} Uhr.\r\n\r\nMit freundlichen Grüßen,\r\n James",
     "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nLASS ALLES STEHEN UND LIEGEN! {{EVENT_NAME}} am {{DATE}} Uhr!\r\n\r\nNaja oke, vielleicht übertrieben. Ich hab keine Ahnung wie viel vorher die Erinnerung an dich raus geht. Mach einfach weiter ... oder auch nicht",
     "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nHey {{NAME}},\r\nkurze Erinnerung, am {{DATE}} Uhr ist {{EVENT_NAME}}",
-    "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nEy {{NAME}},\r\nin meiner Datenbank steht das {{EVENT_NAME}} am {{DATE}} Uhr an. Du wolltest eine Erinnerung? Hier ist sie!"
+    "[ERINNERUNG - {{EVENT_NAME}}]\r\n\r\nEy {{NAME}},\r\nin meiner Datenbank steht das Event '{{EVENT_NAME}}' am {{DATE}} Uhr an. Du wolltest eine Erinnerung? Hier ist sie!"
 ]

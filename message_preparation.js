@@ -15,7 +15,7 @@ export const prepareMessageText = function (event, fullName) {
 
     Object.keys(replacements).forEach((key) => {
         const replacementValue = replacements[key];
-        message = message.replace(key, replacementValue);
+        message = message.replace(key, replacementValue).replace(key, replacementValue).replace(key, replacementValue).replace(key, replacementValue);
     });
 
     return message;
